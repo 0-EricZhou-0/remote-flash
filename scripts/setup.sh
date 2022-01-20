@@ -3,6 +3,8 @@ if [[ $confirm != [yY] ]]; then
   echo "Aborting..."
   exit 1
 fi
+# getting current directory
+current_dir=$(pwd)
 
 # starting sudo session
 sudo echo "Setup start"
@@ -18,7 +20,7 @@ done
 echo "Required packages installed"
 
 # list of all required python packages
-#not useful for now
+# not useful for now
 python_req_pkgs=("requests" "json")
 # if package does not exist, install it
 for pkg in ${python_req_pkgs[@]}; do
@@ -27,8 +29,6 @@ for pkg in ${python_req_pkgs[@]}; do
   done
 done
 echo "Required python packages installed"
-
-current_dir=$(pwd)
 
 # build stlink from source
 if ! command -v st-info &> /dev/null; then
@@ -55,8 +55,8 @@ if ! command -v st-info &> /dev/null; then
 fi
 echo "Stlink installed"
 
-# install arm-embedded toolchain
-if ! grep -q "gcc-arm-none-eabi-10.3-2021.10/bin" ~/.bashrc; then
+# setup arm-embedded toolchain
+if ! command -v arm-none-eabi-gcc &> /dev/null; then
   cd $current_dir
   # different cpu architecture have different toolchain versions
   cpu_architecture=$(uname -m)
@@ -81,5 +81,6 @@ fi
 echo "Arm toolchain installed"
 
 echo "Setup complete"
+
 # stopping sudo session
-# stopsudo
+sudo -k
