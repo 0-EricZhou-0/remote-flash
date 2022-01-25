@@ -9,7 +9,7 @@ if [[ $EUID == 0 ]]; then
 fi
 
 sudo -k
-read -rsp "Password: " password
+read -rsp "[sudo] password for $USER: " password
 if ! echo "$password" | sudo -S true &> /dev/null; then
   exit 1
 fi
