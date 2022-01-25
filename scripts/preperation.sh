@@ -52,3 +52,5 @@ case "$architecture" in
     exit 1
     ;;
 esac
+
+cp ./setup_network.sh "$target_dir"
