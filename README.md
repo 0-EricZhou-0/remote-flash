@@ -14,7 +14,7 @@ This repo have scripts that intends to construct a wireless server for stm32 dev
 - A screen that can display the output of the SBC
 - A fresh Ubuntu Server install (or any other os with bash)
   - Desktop versions can also be used but they generally need more space to set up
-  - When writing this readme, Ubuntu server
+  - When writing this readme, Ubuntu Server 20.04 LTS is used
 - A USB drive
   - Capacity should be at least 4MB (may subject to change)
 - Host computer have access to internet
