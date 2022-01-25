@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# download all dependencies of nmcli which configures networking
 architectures=("x86_64" "aarch64")
 echo -n "Enter architecture of target system, available options are: "
 for architecture in "${architectures[@]}"; do
