@@ -56,4 +56,3 @@ esac
 # copy nessary setup files over
 cp ./env_setup.sh "$target_dir"
 cp ./network_setup.sh "$target_dir"
-cp ./utils.sh "$target_dir"
