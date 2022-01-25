@@ -61,7 +61,7 @@ while :; do
   nmcli device wifi rescan
   nmcli device wifi list
   read -rp "SSID: " ssid
-  read -rsp "passeord: " pwd
+  read -rp "password: " pwd
   # try to connect to that wifi
   nmcli device wifi connect "$ssid" password "$pwd"
 done

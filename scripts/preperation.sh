@@ -24,7 +24,7 @@ fi
 
 # specify a destination folder
 while :; do
-  read -rp "Enter position to download: " target_dir
+  read -rp "Enter position to place setup files: " target_dir
   if [[ ! -d $target_dir ]]; then
     echo "Target folder does not exist, try again"
   else
@@ -56,3 +56,4 @@ esac
 # copy nessary setup files over
 cp ./env_setup.sh "$target_dir"
 cp ./network_setup.sh "$target_dir"
+cp ./utils.sh "$target_dir"
