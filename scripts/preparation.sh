@@ -59,3 +59,4 @@ esac
 
 # copy all resources over to target directory
 cp -r ./resources "$target_dir"
+mv "$target_dir/resources/setup.sh" "$target_dir/"
