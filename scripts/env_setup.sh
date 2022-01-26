@@ -1,4 +1,5 @@
 #!/bin/bash
+#shellcheck source=/dev/null
 
 # confirm script is run as root, root have EUID 0
 if [[ $EUID == 0 ]]; then 
