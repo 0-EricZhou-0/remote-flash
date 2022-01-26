@@ -1,6 +1,4 @@
 #!/bin/bash
-#shellcheck source=/dev/null
-source ./utils.sh
 
 # confirm script is run as root, root have EUID 0
 if [[ $EUID == 0 ]]; then 
@@ -9,8 +7,8 @@ if [[ $EUID == 0 ]]; then
 fi
 
 sudo -k
-read -rsp "[sudo] password for $USER: " password
-if ! echo "$password" | sudo -S true &> /dev/null; then
+read -rsp "[sudo] password for $USER: " sudo_password
+if ! echo "$sudo_password" | sudo -S true &> /dev/null; then
   exit 1
 fi
 echo "√"
@@ -40,7 +38,7 @@ echo "Setup start"
 bash_req_pkgs=("make" "cmake" "git" "libusb-1.0-0" "libusb-1.0-0-dev" "openocd" "python3" "python3-pip")
 # if package does not exist, install it
 for pkg in "${bash_req_pkgs[@]}"; do
-  while ! echo "$password" | sudo -S apt-get -qq install "$pkg"; do
+  while ! echo "$sudo_password" | sudo -S apt-get -qq install "$pkg"; do
     : # do nothing
   done
 done
@@ -77,9 +75,9 @@ if ! command -v st-info &> /dev/null; then
   mkdir "$stlink_folder_name"
   tar -xvf "$stlink_tar_name" -C "$stlink_folder_name" --strip-components 1
   cd "$stlink_folder_name" || cd_error "$stlink_folder_name" "$(basename "$0")" "$LINENO"
-  echo "$password" | sudo -S make clean
-  echo "$password" | sudo -S make install
-  echo "$password" | sudo -S ldconfig
+  echo "$sudo_password" | sudo -S make clean
+  echo "$sudo_password" | sudo -S make install
+  echo "$sudo_password" | sudo -S ldconfig
 fi
 echo "Stlink installed"
 

@@ -27,6 +27,8 @@ while :; do
   read -rp "Enter position to place setup files: " target_dir
   if [[ ! -d $target_dir ]]; then
     echo "Target folder does not exist, try again"
+  elif find "$target_dir" -mindepth 1 -maxdepth 1 | read -r; then
+    echo "Target folder not empty, try again"
   else
     break
   fi 
