@@ -35,19 +35,21 @@ while :; do
 done
 
 # download file according to architecture
+download_directory="$target_dir/resources/dependencies"
+mkdir "$download_directory"
 case "$target_architecture" in
   x86_64)
     echo "NOT supported for now, hopefully someday someone could do an experiment with those devices."
     exit 1
     ;;
   aarch64)
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/n/network-manager/network-manager_1.22.10-1ubuntu1_arm64.deb
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/b/bluez/libbluetooth3_5.53-0ubuntu3_arm64.deb
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/j/jansson/libjansson4_2.12-1build1_arm64.deb
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/m/modemmanager/libmm-glib0_1.12.8-1_arm64.deb
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/libn/libndp/libndp0_1.7-0ubuntu1_arm64.deb
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/n/network-manager/libnm0_1.22.10-1ubuntu1_arm64.deb
-    wget -P "$target_dir" http://ports.ubuntu.com/pool/main/libt/libteam/libteamdctl0_1.30-1_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/n/network-manager/network-manager_1.22.10-1ubuntu1_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/b/bluez/libbluetooth3_5.53-0ubuntu3_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/j/jansson/libjansson4_2.12-1build1_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/m/modemmanager/libmm-glib0_1.12.8-1_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/libn/libndp/libndp0_1.7-0ubuntu1_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/n/network-manager/libnm0_1.22.10-1ubuntu1_arm64.deb
+    wget -P "$download_directory" http://ports.ubuntu.com/pool/main/libt/libteam/libteamdctl0_1.30-1_arm64.deb
     ;;
   *)
     echo "NOT supported architecture"
@@ -55,6 +57,5 @@ case "$target_architecture" in
     ;;
 esac
 
-# copy nessary setup files over
-cp ./env_setup.sh "$target_dir"
-cp ./network_setup.sh "$target_dir"
+# copy all resources over to target directory
+cp -r ./resources "$target_dir"
