@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# try install all *.deb files under current directory
-if ! command -v nmcli &> /dev/null; then
-  sudo dpkg --force-depends -i ./*deb
-fi
-
 # finding an address to ping in source.list of apt
 file="/etc/apt/sources.list"
 while IFS=: read -r line; do
@@ -27,8 +22,7 @@ test_connection() {
   ((count = 10))
   while [[ $count -ne 0 ]] ; do
     ping -c 1 "$test_url"
-    rc=$?
-    if [[ $rc -eq 0 ]] ; then
+    if ! $? ; then
       return 0
     else
       ((count = count - 1))
