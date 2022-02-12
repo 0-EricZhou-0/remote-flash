@@ -1,6 +1,14 @@
 #!/bin/bash
 #shellcheck source=/dev/null
 
+# function to report error when cd fails
+cd_error() {
+  echo "Error on file $2, line #$3"
+  echo "Script error detected, current directory ($1) seems not exist any more, exiting..."
+  sudo -k
+  exit 1
+}
+
 # confirm script is run as root, root have EUID 0
 if [[ $EUID == 0 ]]; then 
   echo "Script $(basename "$0") shuold not be run as root, please try again."
@@ -8,6 +16,7 @@ if [[ $EUID == 0 ]]; then
 fi
 
 sudo -k
+# get user password
 read -rsp "[sudo] password for $USER: " sudo_password
 if ! echo "$sudo_password" | sudo -S true &> /dev/null; then
   exit 1
@@ -20,14 +29,6 @@ if [[ $confirm != [yY] ]]; then
   sudo -k
   exit 1
 fi
-
-# reporting error when cd fails
-cd_error() {
-  echo "Error on file $2, line #$3"
-  echo "Script error detected, current directory ($1) seems not exist any more, exiting..."
-  sudo -k
-  exit 1
-}
 
 # getting current directory
 setup_root_dir=$(pwd)
@@ -46,7 +47,7 @@ done
 echo "Required packages installed"
 
 # list of all required python packages (not useful for now)
-python_req_pkgs=("requests" "json")
+python_req_pkgs=("requests" "json" "pyyaml")
 # if package does not exist, install it
 for pkg in "${python_req_pkgs[@]}"; do
   while ! echo -e "try: import $pkg\nexcept ImportError: exit(1)" | python3; do
